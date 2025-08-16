@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Das beste hausgemachte Eis in Vellmar. Entdecke unsere leckeren Eissorten, Eisbecher und Kaffeespezialitäten.">
-    <title>Eiscafé Da Carlo - Leckeres Eis in Vellmar</title>
+    <meta name="description" content="Das beste hausgemachte Eis in [Deine Stadt]. Entdecke unsere leckeren Eissorten, Eisbecher und Kaffeespezialitäten.">
+    <title>Eiscafé [Dein Name] - Leckeres Eis in [Deine Stadt]</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0-rc.17/dist/cookieconsent.css">
-    <script type="text/plain" data-cookie-category="analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-69YC1RK8N6"></script>
-    <script type="text/plain" data-cookie-category="analytics">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
+
+    <script type="text/plain" data-cookieconsent="analytics" async src="https://www.googletagmanager.com/gtag/js?id=G-69YC1RK8N6"></script>
+    <script type="text/plain" data-cookieconsent="analytics">
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-69YC1RK8N6');
     </script>
-    </head>
-<body>
 
+</head>
+<body>
     <header>
-        <h1>Eiscafé Da Carlo</h1>
+        <h1>Eiscafé [Dein Name]</h1>
         <p>Hausgemachtes Eis mit Liebe gemacht</p>
     </header>
-
     <nav>
         <a href="#menu">Unsere Sorten</a>
         <a href="#about">Über Uns</a>
         <a href="#contact">Kontakt</a>
     </nav>
-
     <main>
         <section id="hero">
             <h2>Willkommen bei uns!</h2>
             <p>Genieße den Sommer mit einem leckeren Eis in unserem gemütlichen Café.</p>
             <img src="platzhalter-eisdiele.jpg" alt="Gemütliche Atmosphäre in unserem Eiscafé" style="width:100%; max-width: 800px;">
         </section>
-
         <section id="menu">
             <h2>Unsere Eiskarte</h2>
             <p>Wir bieten eine täglich wechselnde Auswahl an hausgemachten Eissorten.</p>
@@ -46,34 +45,73 @@
                 <li>🍋 Zitrone - Die perfekte Erfrischung (Vegan)</li>
                 <li>... und viele mehr!</li>
             </ul>
-             <img src="platzhalter-eis.jpg" alt="Unsere leckeren Eissorten" style="width:100%; max-width: 600px;">
+            <img src="platzhalter-eis.jpg" alt="Unsere leckeren Eissorten" style="width:100%; max-width: 600px;">
         </section>
-
         <section id="about">
             <h2>Über Uns</h2>
-            <p>Seit 1980 verwöhnen wir unsere Gäste in Vellmar mit traditionell hergestelltem Speiseeis. Wir legen Wert auf hochwertige Zutaten und freundlichen Service.</p>
+            <p>Seit [Gründungsjahr] verwöhnen wir unsere Gäste in [Deine Stadt] mit traditionell hergestelltem Speiseeis. Wir legen Wert auf hochwertige Zutaten und freundlichen Service.</p>
         </section>
-
         <section id="contact">
             <h2>Kontakt & Öffnungszeiten</h2>
-            <p><strong>Adresse:</strong><br>
-            Rathauspl. 3<br>
-            34246 Vellmar</p>
-
-            <p><strong>Öffnungszeiten:</strong><br>
-            Täglich von 09:30 bis 20:30 Uhr</p>
-
-            <p><strong>Telefon:</strong> 0561 824644</p>
+            <p><strong>Adresse:</strong><br>[Deine Straße und Hausnummer]<br>[PLZ] [Deine Stadt]</p>
+            <p><strong>Öffnungszeiten:</strong><br>Täglich von 11:00 bis 21:00 Uhr</p>
+            <p><strong>Telefon:</strong> [Deine Telefonnummer]</p>
             <p><strong>E-Mail:</strong> [Deine E-Mail-Adresse]</p>
         </section>
     </main>
-
     <footer>
-        <p>&copy; 2025 Eiscafé Da Carlo | <a href="#">Impressum</a></p>
+        <p>&copy; 2025 Eiscafé [Dein Name] | <a href="#">Impressum</a></p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-    <script defer src="cookie-config.js"></script>
+    <script>
+    window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": { "background": "#f4f4f4", "text": "#333" },
+                "button": { "background": "#d63384", "text": "#ffffff" }
+            },
+            "type": "opt-in", // Wichtig für DSGVO/TTDSG
+            "content": {
+                "message": "Diese Webseite verwendet Cookies, um die Benutzerfreundlichkeit zu gewährleisten.",
+                "dismiss": "Nur Notwendige",
+                "allow": "Alle annehmen",
+                "link": "Mehr erfahren",
+                "href": "#"
+            },
+            // Diese Funktion wird ausgeführt, wenn der Nutzer seine Auswahl trifft
+            onStatusChange: function(status, chosenBefore) {
+                var type = this.options.type;
+                var didConsent = this.hasConsented();
 
+                if (type == 'opt-in' && didConsent) {
+                    // Nutzer hat zugestimmt -> Aktiviere die Analyse-Skripte
+                    activateAnalytics();
+                }
+            }
+        });
+    });
+
+    // Diese Hilfsfunktion sucht nach blockierten Skripten und aktiviert sie
+    function activateAnalytics() {
+        // Finde alle Skripte mit dem Attribut data-cookieconsent="analytics"
+        const analyticsScripts = document.querySelectorAll('script[type="text/plain"][data-cookieconsent="analytics"]');
+        analyticsScripts.forEach((script) => {
+            // Erstelle ein neues, ausführbares Skript
+            const newScript = document.createElement('script');
+            // Kopiere den Inhalt und die Attribute (z.B. src)
+            newScript.innerHTML = script.innerHTML;
+            for (let i = 0; i < script.attributes.length; i++) {
+                const attr = script.attributes[i];
+                newScript.setAttribute(attr.name, attr.value);
+            }
+            // Ändere den Typ, damit der Browser es ausführt
+            newScript.type = 'text/javascript';
+            // Ersetze das alte "text/plain"-Skript durch das neue, aktive Skript
+            script.parentNode.replaceChild(newScript, script);
+        });
+        console.log("Analyse-Cookies wurden aktiviert.");
+    }
+    </script>
 </body>
 </html>
