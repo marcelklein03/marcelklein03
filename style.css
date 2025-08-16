@@ -1,0 +1,67 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #ffcce5; /* Ein sanftes Rosa, passend zu Eis */
+    color: #333;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav {
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: #d63384; /* Ein kräftigeres Pink */
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #fff0f5; /* Ein sehr helles Rosa */
+    margin-bottom: 5px;
+    padding: 10px;
+    border-left: 5px solid #d63384;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background: #333;
+    color: white;
+}
