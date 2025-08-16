@@ -1,78 +1,47 @@
-// Wir warten, bis das HTML-Dokument vollständig geladen ist, bevor wir das Skript ausführen.
-window.addEventListener('DOMContentLoaded', () => {
-
-    // Konfiguration für den Cookie Consent Banner
-    CookieConsent.run({
-        current_lang: 'de',
-        autodetect_lang: false,
-        page_scripts: true,
-        gui_options: {
-            consent_modal: {
-                layout: 'box',
-                position: 'bottom right',
-                transition: 'slide'
+window.addEventListener("load", function(){
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": { "background": "#f4f4f4", "text": "#333" },
+                "button": { "background": "#d63384", "text": "#ffffff" }
             },
-            settings_modal: {
-                layout: 'box',
-                transition: 'slide'
-            }
-        },
-        languages: {
-            de: {
-                translations: {
-                    consent_modal: {
-                        title: 'Wir verwenden Cookies!',
-                        description: 'Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern. Durch die Nutzung unserer Website stimmen Sie allen Cookies gemäß unserer Cookie-Richtlinie zu. <a href="#link-zur-datenschutzerklaerung" class="cc-link">Mehr erfahren</a>',
-                        primary_btn: {
-                            text: 'Alle akzeptieren',
-                            role: 'accept_all'
-                        },
-                        secondary_btn: {
-                            text: 'Nur Notwendige',
-                            role: 'accept_necessary'
-                        }
-                    },
-                    settings_modal: {
-                        title: 'Cookie-Einstellungen',
-                        save_settings_btn: 'Einstellungen speichern',
-                        accept_all_btn: 'Alle akzeptieren',
-                        reject_all_btn: 'Alle ablehnen',
-                        close_btn_label: 'Schließen',
-                        blocks: [
-                            {
-                                title: 'Cookie-Nutzung 📢',
-                                description: 'Wir verwenden Cookies, um die grundlegenden Funktionen der Website zu gewährleisten und Ihr Online-Erlebnis zu verbessern.'
-                            }, {
-                                title: 'Notwendige Cookies',
-                                description: 'Diese Cookies sind für das reibungslose Funktionieren unserer Website unerlässlich.',
-                                toggle: {
-                                    value: 'necessary',
-                                    enabled: true,
-                                    readonly: true
-                                }
-                            }, {
-                                title: 'Analyse-Cookies',
-                                description: 'Diese Cookies ermöglichen es uns, zu analysieren, wie Besucher unsere Website nutzen, um deren Leistung zu messen und zu verbessern.',
-                                toggle: {
-                                    value: 'analytics',
-                                    enabled: false,
-                                    readonly: false
-                                }
-                            }
-                        ]
-                    }
+            "type": "opt-in", // Wichtig für DSGVO/TTDSG
+            "content": {
+                "message": "Diese Webseite verwendet Cookies, um die Benutzerfreundlichkeit zu gewährleisten.",
+                "dismiss": "Nur Notwendige",
+                "allow": "Alle annehmen",
+                "link": "Mehr erfahren",
+                "href": "#link-zu-deiner-datenschutzerklaerung"
+            },
+            // Diese Funktion wird ausgeführt, wenn der Nutzer seine Auswahl trifft
+            onStatusChange: function(status, chosenBefore) {
+                var type = this.options.type;
+                var didConsent = this.hasConsented();
+
+                if (type == 'opt-in' && didConsent) {
+                    // Nutzer hat zugestimmt -> Aktiviere die Analyse-Skripte
+                    activateAnalytics();
                 }
             }
-        },
-        categories: {
-            necessary: {
-                enabled: true,
-                readonly: true
-            },
-            analytics: {
-                enabled: false,
-                readonly: false
-            }
-        }
+        });
     });
-});
+
+    // Diese Hilfsfunktion sucht nach blockierten Skripten und aktiviert sie
+    function activateAnalytics() {
+        // Finde alle Skripte mit dem Attribut data-cookieconsent="analytics"
+        const analyticsScripts = document.querySelectorAll('script[type="text/plain"][data-cookieconsent="analytics"]');
+        analyticsScripts.forEach((script) => {
+            // Erstelle ein neues, ausführbares Skript
+            const newScript = document.createElement('script');
+            // Kopiere den Inhalt und die Attribute (z.B. src)
+            newScript.innerHTML = script.innerHTML;
+            for (let i = 0; i < script.attributes.length; i++) {
+                const attr = script.attributes[i];
+                newScript.setAttribute(attr.name, attr.value);
+            }
+            // Ändere den Typ, damit der Browser es ausführt
+            newScript.type = 'text/javascript';
+            // Ersetze das alte "text/plain"-Skript durch das neue, aktive Skript
+            script.parentNode.replaceChild(newScript, script);
+        });
+        console.log("Analyse-Cookies wurden aktiviert.");
+    }
